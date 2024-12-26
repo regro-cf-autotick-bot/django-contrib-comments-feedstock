@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 48de00f15677e016a216aeff205d6e00e4391c9a5702136c64119c472b7356da
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7,<4
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7,<4
+    - python >={{ python_min }},<4
     - django >=3.2
 
 test:
@@ -27,6 +27,7 @@ test:
     - django_comments
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
